@@ -24,7 +24,7 @@ struct Coord {
 
 int main(){
   int numPoints = 6;
-  Coord points[numPoints] = {
+  Coord points[6] = {
     {0.75,5120},
     {0.72,5370},
     {0.70,5560},

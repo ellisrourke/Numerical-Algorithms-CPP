@@ -12,14 +12,13 @@ double dfunc(double x){
   return (-1.0 * pow(EulerConstant,-x) - 1);
 }
 
-void bisection(double xi, double xu, double xr, double(* func)(double), int num){
+void bisection(double xi, double xu, double xr, double(* func)(double)){
   //calculate stopping condition
   double previous;
   while(true){
     previous = xr;
     xr = (xi + xu) / 2;
     if(abs(((xr - previous) / xr)*100) < 0.0005){
-      cout << "stopping" << endl;
       break;
     }
 
@@ -28,34 +27,40 @@ void bisection(double xi, double xu, double xr, double(* func)(double), int num)
     } else {
         xi = xr;
     }
-
-    num++;
   }
+
   cout << "Bisection Estimate " << fixed << xr << endl;
   return;
 }
 
-void newtonRaphson(double xi, double xu, double(* func)(double), int num){
-  //x0 = xi
-  //x1 = xu
+void newtonRaphson(double xi, double xu, double(* func)(double)){
   double previous;
   while(true){
     previous = xi;
     xi = previous - (func(previous) / dfunc(previous));
-    cout << xi << endl;
     if(abs(((xi - previous))*100) < 0.0005){
+      cout << "Newton Raphson Estimate " << fixed << xi << endl;
       break;
     }
   }
 
-
-
-
-
-
 }
+
+void secant(double xi, double xu, double(* func)(double)){
+  double previous;
+  while(true){
+    previous = xi;
+    xi = xi - (xi - xu) / (func(xi) - func(xu)) * func(xi);
+    if(abs(((xi - previous))*100) < 0.0005){
+      cout << "Secant Estimate " << fixed << xi << endl;
+      break;
+    }
+  }
+}
+
+
 int main(){
-  cout << "Estimate Function Roots" << endl;
+  cout << "Estimate Function Roots" << endl << endl;
   //Bisection, Newton- Raphson and Secant
   // f(x) = e^-x -x
   // x(-1) = 0
@@ -64,8 +69,8 @@ int main(){
   double xu = 1;
   double xr;
 
-  //bisection(xi, xu, xr, func, 0);
-  newtonRaphson(xi, xu, func, 0);
-
+  bisection(xi, xu, xr, func);
+  newtonRaphson(xi, xu, func);
+  secant(xi, xu, func);
   return 0;
 }

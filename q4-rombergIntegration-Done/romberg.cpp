@@ -14,7 +14,7 @@ double function(int x){
                    2.25,
                    1.12,
                    0.0};
-  return nums[x / 2];
+  return nums[x/2];
 }
 
 
@@ -30,33 +30,36 @@ double multiApplicationTrapezoidal(double a, double b, double(* func)(int), int 
 }
 
 double romberg(double a, double b, double(* func)(int)){
-  int segments = 2;
-  double **Rows, result;
-  Rows = new double * [100];
-
+  int segments = 1;
+  double **Rows;
+  double result;
+  Rows = new double * [20];
   Rows[1] = new double [2];
+
   Rows[1][1] = multiApplicationTrapezoidal(a,b,func,segments);
+
   segments *= 2;
 
-  for(int i=2; i<100; i++){
+  for(int i=2; i<20; i++){
     Rows[i] = new double [i + 1];
-    for(int j=1;j<i;j++){
+    for(int j=1; j<=i; j++){
       if(j == 1){
         Rows[i][j] = multiApplicationTrapezoidal(a,b,func,segments);
         segments *= 2;
       } else {
-        Rows[i][j] = Rows[i][j-1] + (Rows[i][j - 1] - Rows[i - 1][j - 1]) / (pow(4, j-1)-1);
-        cout << "progress: " << Rows[i][j] << std::endl;
-        if((Rows[i][j] - Rows[i][j-1]) * 100 / Rows[i][j] < 0.01){
+        Rows[i][j] = Rows[i][j-1] + (Rows[i][j - 1] - Rows[i - 1][j - 1]) / (pow(4, j - 1) - 1);
+        if((Rows[i][j] - Rows[i][j-1]) * 100 / Rows[i][j] < 1){
           result = Rows[i][j];
-          cout << "here?" << Rows[i][j] << endl;
           i = 100;
           break;
+
         }
       }
     }
   }
-  for (int x=0; x< 10; x++) {
+
+
+  for (int x=1; x<4; x++) {
       for (int k=1; k <=x; k++) {
           std::cout << std::fixed << Rows[x][k] << " ";
       }
@@ -67,6 +70,13 @@ double romberg(double a, double b, double(* func)(int)){
 }
 
 int main(){
-  cout << romberg(0,16,function) << endl;
+  double a = 0.0;
+  double b = 16.0;
+  cout << "Romberg result = " << romberg(a,b,function) << endl;
   return 0;
 }
+
+//0.000000
+//19.200000 25.600000
+//26.600000 29.066667 29.297778
+//Answer = 29.297778

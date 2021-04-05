@@ -21,22 +21,15 @@ void richardsonExtrapolation(double (*f)(double), double x, double h, double tru
     for(int j=1; j<=i; j++){
       results[i][j] = results[i][j-1] + (results[i][j-1] - results[i-1][j-1]) / (pow(4,j) - 1);
     }
-  ht /= 2;
+    ht /= 2;
   }
 
-//  for(int i=0; i<N; i++){
-//    for(int j=0; j<=i; j++){
-//      cout << results[i][j] << " ";
-//    }
-//    cout << endl;
-//  }
-    
+
   cout << "Central Difference value = " << results[1][0] << endl;
   cout << "Error " << fixed << abs((trueValue - results[1][0])/trueValue)*100 << "%" << endl << endl;
   cout << "Richardson Extrapolation value = " << results[N-1][N-1] << endl;
   cout << "Error " << fixed << abs((trueValue - results[N-1][N-1])/trueValue)*100 << "%" << endl << endl;
 
-    
   return;
 }//
 
@@ -46,12 +39,12 @@ int main(){
     double hValues[] = {2,1,0.5,0.25,0.1};
     double trueValue = derivativefnc(x);
     cout << "Richardson Extrapolation vs Central Difference" << endl << endl;
-    
+
     cout << "True value of fnc = " << fnc(x) << endl;
     cout << "True value of derivative = " << trueValue << endl << endl;
-    
-    
-    
+
+
+
     for(int i=0; i<5; i++){
         cout << "---- Results for h = " << hValues[i] << " ----" << endl;
         richardsonExtrapolation(&fnc, x, hValues[i], trueValue);

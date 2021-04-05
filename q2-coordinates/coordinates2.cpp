@@ -7,10 +7,10 @@ struct Coord {
   double range;
   double x; //x coord
   double y; //y coord
-  double d1;
-  double d2;
-  double v; //velocity
-  double a; //acceleration
+  double vi;
+  double vj;
+  double ai;
+  double aj;
 };
 
 //velcoity = derivative of (R*cos(theta)) i + derivative of (R*sin(theta)) j
@@ -30,21 +30,16 @@ int main(){
     for(int i=0; i<numPoints; i++){
       points[i].x = points[i].range * cos(points[i].angle);
       points[i].y = points[i].range * sin(points[i].angle);
-      points[i].d1 = points[i].range * -1 * sin(points[i].angle);
-      points[i].d2 = points[i].range * (cos(points[i].angle));
-      cout << "velocity = " << points[i].d1 << "i + " << points[i].d2 << "j" << endl;
-      //cout << i << " x " << points[i].x << endl;
-      //cout << i << " y " << points[i].y << endl;
+      points[i].vi = points[i].range * -1 * sin(points[i].angle);
+      points[i].vj = points[i].range * (cos(points[i].angle));
+      cout << "Velocity Vector = " << points[i].vi << "i + " << points[i].vj << "j" << endl;
+      points[i].ai = points[i].range * -1 * cos(points[i].angle);
+      points[i].aj = points[i].range * (sin(points[i].angle));
+      cout << "Acceleration Vector = " << points[i].ai << "i - " << points[i].aj << "j" << endl <<endl<<endl;
     }
     cout << endl << endl;
 
-    for(int i=0; i<numPoints; i++){
-      points[i].v = ((sqrt(pow(points[i].x - points[i-1].x,2) + pow(points[i].y - points[i-1].y,2))) / 2); //calculate the velocity from i-1 to i
-      points[i].a = (points[i].v - points[i-1].v) / 2; //calculate the acceleration from i-1 to i
-      cout << i << " Velocity: " << points[i].v << endl;
-      cout << i << " Acceleration: " << points[i].a << endl;
-      cout << endl;
-    }
+
 }
 
 // find the vector derivative

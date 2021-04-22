@@ -22,7 +22,6 @@ double rk4(double z0, double zn, double h){
     return z;
 }
 
-// Driver method
 int main(){
     for (double z = 0; z <= 10; z++){
          std::cout << "z = " << z << " y = " << rk4(0.0, z, 0.1) << std::endl;

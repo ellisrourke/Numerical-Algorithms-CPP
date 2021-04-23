@@ -48,6 +48,9 @@ double romberg(double a, double b, double(* func)(int)){
         segments *= 2;
       } else {
         Rows[i][j] = Rows[i][j-1] + (Rows[i][j - 1] - Rows[i - 1][j - 1]) / (pow(4, j - 1) - 1);
+          cout << "values " << Rows[i][j] << " " << Rows[i][j-1] << endl;
+          cout << "Error " << (Rows[i][j] - Rows[i][j-1]) * 100 / Rows[i][j] << endl;
+
         if((Rows[i][j] - Rows[i][j-1]) * 100 / Rows[i][j] < 1){
           result = Rows[i][j];
           i = 100;

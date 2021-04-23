@@ -24,11 +24,10 @@ void richardsonExtrapolation(double (*f)(double), double x, double h, double tru
     ht /= 2;
   }
 
-
   cout << "Central Difference value = " << results[1][0] << endl;
   cout << "Error " << fixed << abs((trueValue - results[1][0])/trueValue)*100 << "%" << endl << endl;
-  cout << "Richardson Extrapolation value = " << results[N-1][N-1] << endl;
-  cout << "Error " << fixed << abs((trueValue - results[N-1][N-1])/trueValue)*100 << "%" << endl << endl;
+  cout << "Richardson Extrapolation value = " << results[N-1][0] << endl;
+  cout << "Error " << fixed << abs((trueValue - results[N-1][0])/trueValue)*100 << "%" << endl << endl;
 
   return;
 }//

@@ -19,7 +19,7 @@ double secondDerivative(double x){
 }
 
 double thirdDerivative(double x){
-  return( -2.4*x - 0.9);
+  return( -2.4 * x - 0.9 );
 }
 double centralDifference(double (*f)(double), double x, double h){
   return (f(x + h) - f(x - h)) / (2 * h);
@@ -28,7 +28,8 @@ double centralDifference(double (*f)(double), double x, double h){
 
 int main(){
   double x = 0.5;
-  double hValues[] = {10,5,4,3,2,1.5,1,0.5,0.25,0.1};
+    double hopt = -1*cbrt((3*numeric_limits<double>::epsilon()/thirdDerivative(x)));
+    double hValues[] = {10,5,4,3,2,1.5,1,0.5,0.25,0.1,hopt};
 
   double calculatedValue;
   double roundOffError;
@@ -36,7 +37,8 @@ int main(){
   cout << "at x = " << x << endl;
   cout << "function = " << function(x) << endl;
   cout << "derivative = " << derivativeFunction(x) << endl << endl;
-  for(int i=0;i<10;i++){
+  cout << "H-opt = " << hopt << endl;
+    for(int i=0;i<11;i++){
     calculatedValue = centralDifference(function,  x,  hValues[i]);
     roundOffError = calculatedValue - ((centralDifference(function,  x+1,  hValues[i]) - centralDifference(function,  x-1,  hValues[i])) / (2* hValues[i]));
     truncationError = (thirdDerivative(numeric_limits<double>::epsilon())/6) * (hValues[i] * hValues[i]);
